@@ -1,0 +1,82 @@
+
+
+Explanation for the Script:
+
+A script that helps install a master and slave Ubuntu vagrant machine.
+And also runs LAMP stack
+
+
+Must have:
+
+-vagrant
+-virtual box
+
+(This must be present in the machine that is running this script)
+
+
+
+slave & master:
+	memory: 1024
+	cpus: 2
+	
+	
+
+Slave machine:
+
+name = slave_1
+image = ubuntu/focal64
+network:
+	private_network
+	constant ip: "192.168.20.11" (change_this to what that can be used on your bare metal)
+	
+Slave configuration:
+	update & upgrade machine
+	
+	install:
+		- sshpass: for bypassing the password while logging in
+		- switching the passowrd authenticator on to log in using password
+		- restarting the sshd service
+		- installing avahi-daemon libnss-mdns
+		
+Master machine
+
+name = master
+image = ubuntu/focal64
+network:
+	private_network
+	constant ip: "192.168.20.10" (change_this to what that can be used on your bare metal)
+
+
+Master configuration:
+	update & upgrade machine
+	
+	install:
+		- sshpass: for bypassing the password while logging in
+		- switching the passowrd authenticator on to log in using password
+		- restarting the sshd service
+		- installing avahi-daemon libnss-mdns
+		
+		
+script configuration:
+- creating a sudo user named "altschool"
+- creating ssh key for the user "altschool"
+- copy the user "altschool" ssh to the slave machine (only the user altschool should be able to ssh into the slave machine with a password)
+- copy a file named "/mnt" from the "altschool" user to the slave machine.
+		
+		
+
+LAMP stack (slave & master installation):
+	LAMP: (linux, apache, mysql & php):
+	- Installing MySQL
+	- Installing Apache2 Web Server
+	- Installing PHP & Requirements
+	- Enabling Modules
+	- Restarting Apache
+	
+	
+	
+Finally, from the script a LAMP stack will be installed on both master and slave as soon as the script executes. 
+A restart will take effect for the apache server after the installation and configuration.
+Different versions of php will be installed because some servers require more recent versions of PHP.
+Also MySQL server and client are going to be installed on both Master and Slave.
+	
